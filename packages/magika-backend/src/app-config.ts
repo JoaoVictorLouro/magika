@@ -4,6 +4,8 @@ interface AppConfig {
   ENVIRONMENT: string,
   SERVER_PORT: number,
   REDIS_PORT: number,
+  MONGODB_PORT: number,
+  MONGODB_DB: string,
   SESSION_SECRET: string,
   GOOGLE_OAUTH_CLIENT_ID: string,
   GOOGLE_OAUTH_CLIENT_SECRET: string

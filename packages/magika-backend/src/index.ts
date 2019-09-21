@@ -6,13 +6,15 @@ import ErrorHandler from "errorhandler";
 import AppConfig from "./app-config";
 import { bootstrapRest } from './api/rest/bootstrap-rest';
 import { bootstrapGraphQL } from './api/graphql/bootstrap-graphql';
-import { bootstrapSession } from './session-management/bootstrapSession';
+import { bootstrapSession } from './session-management/bootstrap-session';
+import { bootstrapModels } from './models/bootstrap-models';
 
 const app = Express();
 app.use(Morgan(AppConfig.ENVIRONMENT));
 app.use(CookieParser());
 app.use(ErrorHandler());
 
+bootstrapModels(app);
 bootstrapSession(app);
 bootstrapRest(app);
 bootstrapGraphQL(app);

@@ -22,18 +22,58 @@ export function bootstrapSession(app: Express) {
   Passport.use(new PassportLocal.Strategy({}, (email: string, password: string, done) => {
     const user = {};
     UserMongooseModel.findOne({
-      email: {$eq: email}
-    }, (err?: Error, user) => {
-    })
-    done(user);
+      email: { $eq: email }
+    }, (err?: Error, user?: IUserDB) => {
+      if (err) {
+        done(null);
+      } else if (!user) {
+        UserMongooseModel.create({
+
+        } as IUserDB);
+        done(user);
+      } else {
+        done(null);
+      }
+    });
   }));
 
   Passport.use(new PassportGoogleOAuth.Strategy({
     clientID: AppConfig.GOOGLE_OAUTH_CLIENT_ID,
     clientSecret: AppConfig.GOOGLE_OAUTH_CLIENT_SECRET,
     callbackURL: 'http://localhost:8081/oauth/google/callback'
-  }, (accessToken, refreshToken, profile, cb) => {
-    cb(undefined, profile);
+  }, (accessToken: string, refreshToken: string, profile: PassportGoogleOAuth.Profile, done: PassportGoogleOAuth.VerifyCallback) => {
+    if (!accessToken && !refreshToken) {
+      done(new Error('Unauthorized'), null);
+      return;
+    }
+
+    UserMongooseModel.findOne({
+      googleId: profile.id
+    } as Partial<IUserDB>, (err?: Error, user?: IUserDB) => {
+      if (err) {
+        done(err, null);
+        return;
+      }
+
+      if (!user) {
+        const name = (profile.name || { givenName: '', familyName: ''});
+
+        UserMongooseModel.create({
+          googleId: profile.id,
+          enabled: true,
+          firstName: name.givenName || 'Unnamed User',
+          lastName: name.familyName || '',
+        } as IUserDB, (err?: Error, user?: IUserDB) => {
+          if (err) {
+            done(err, null);
+            return;
+          }
+          done(undefined, user);
+        });
+      } else {
+        done(undefined, user);
+      }
+    });
   }));
 
   Passport.serializeUser(function (user, cb) {
