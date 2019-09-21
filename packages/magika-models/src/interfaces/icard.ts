@@ -1,5 +1,4 @@
-export interface IMagicCard {
-    id: number
+export interface ICard {
     name: string
     description: string
     encodedImage: string
