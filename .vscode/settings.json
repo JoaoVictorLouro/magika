@@ -1,0 +1,22 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#437972",
+    "titleBar.activeBackground": "#579D94",
+    "titleBar.activeForeground": "#F8FBFA"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/*_.java": true,
+    "**/generated-sources/**/*": true,
+    "**/dist": true
+  },
+  "explorerExclude.backup": null
+}

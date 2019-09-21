@@ -1,0 +1,23 @@
+{
+  "name": "magika-models",
+  "version": "1.0.0",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": ""
+  },
+  "devDependencies": {
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.6.0",
+    "@babel/types": "^7.6.1",
+    "@types/mongoose": "^5.5.17"
+  }
+}
