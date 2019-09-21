@@ -1,0 +1,2 @@
+# magika
+Magika
